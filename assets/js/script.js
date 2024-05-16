@@ -16,5 +16,27 @@ $(document).ready(function(){
         }else{
             alert("INGRESA UN NÚMERO VÁLIDO");
         }
+
+
+        //CONECTAR API
+        const apiKey = "4905856019427443";
+        const apiUrl = `https://superheroapi.com/api.php/${apiKey}/${num}`;
+        $.ajax({
+            datatype: "json",
+            method: "GET",
+            url: apiUrl,
+            success: function(respuesta){
+                //Muestra la data por consola
+                console.log("Esta es la data ",respuesta);
+            }
+        })
     }
+
+
+
+
+
+
+
+
 })
