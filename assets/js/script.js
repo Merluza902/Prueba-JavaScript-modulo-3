@@ -91,13 +91,16 @@ $(document).ready(function(){
                                 legendText: "{label}",
                                 indexLabel: "{label} ({y})",
                                 yValueFormatString: "#, ##0.#" % "",
-                                dataPoints: datos,
+                                dataPoints: datos /* [
+                                    {y: porcentaje, label: "Nombre campo"},
+                                    {y: porcentaje, label: "Nombre campo"}
+                                ], */
                             },
                         ],
                     };
                     $("#chartContainer").CanvasJSChart(options);
                 }else{
-                    alert("HÉROE NO ENCONTRADO")
+                    alert("HEROE NO ENCONTRADO")
                 }
 
                 //Muestra la data por consola
