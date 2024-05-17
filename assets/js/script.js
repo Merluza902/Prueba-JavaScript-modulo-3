@@ -1,9 +1,16 @@
 $(document).ready(function(){
     $("#form").on("submit", function(e){
+
         //Captura el valor que ingresa el usuario
         let number = parseInt($("#idHero").val())
         e.preventDefault();
         
+        //Limpiar html para mostrar de a una carta
+        $("#resultado").html("")
+
+        //limpiar caja de input
+        $("#idHero").val("")
+
         //Llamado función para que se ejecute
         validar(number);
     });
@@ -27,10 +34,10 @@ $(document).ready(function(){
             method: "GET",
             url: apiUrl,
             success: function(respuesta){
+
                 //Muestra la data por consola
                 console.log("Esta es la data ",respuesta);
 
-                //let heroe = `<div>${respuesta.name}</div>`
                 let heroe =`
                 <h3>SuperHeroe encontrado</h3>
                 <div class="card">
@@ -69,7 +76,33 @@ $(document).ready(function(){
 
                 $("#resultado").append(heroe)
 
+                //Cargar estadisticas
+                let datos = []
+                for(let k in respuesta.powerstats){
+                    datos.push({x: k, y: respuesta.powerstats[k]})
+                }
 
+                let options ={
+                    title: {
+                        text: `Estadísticas de poder ${respuesta.name}`,
+                    },
+                    data: [
+                        {
+                            type: "pie",
+                            startAngle: 45,
+                            showInLegend: "true",
+                            legendText: "{label}",
+                            indexLabel: "{label} ({y})",
+                            yValueFormatString: "#, ##0.#" % "",
+                            dataPoints: datos,
+                        },
+                    ],
+                };
+
+            },
+
+            error: function (error){
+                alert("NO SE ENCONTRÓ EL HÉROE")
             }
         })
     }
